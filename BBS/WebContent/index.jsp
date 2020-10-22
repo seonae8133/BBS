@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-시작하는페이지
-<a href="jsp/menu/mainMenu.jsp">메뉴보기</a>
+<%response.sendRedirect("main.do");%>
 </body>
 </html>

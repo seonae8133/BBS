@@ -13,15 +13,15 @@
 	<div> 
 	<nav id="topMenu" >
 		<ul>
-			<li><a class="menuLink" href="http://unikys.tistory.com/category/Programming%20Lecture/%EB%B0%91%EB%B0%94%EB%8B%A5%EB%B6%80%ED%84%B0%20%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80%20%EB%A7%8C%EB%93%A4%EA%B8%B0">LECTURES</a></li>
+			<li><a class="menuLink" href="#">로그인</a></li>
 			<li>|</li>
-			<li><a class="menuLink" href="http://unikys.tistory.com/guestbook">GUEST BOOK</a></li>
+			<li><a class="menuLink" href="#">공지사항</a></li>
 			<li>|</li>
-			<li><a class="menuLink" href="http://unikys.tistory.com/tag">TAG CLOUD</a></li>
+			<li><a class="menuLink" href="#">게시판</a></li>
 			<li>|</li>
-			<li><a class="menuLink" href="http://unikys.tistory.com/media">MEDIA LOG</a></li>
+			<li><a class="menuLink" href="#">회원가입</a></li>
 			<li>|</li>
-			<li><a class="menuLink" href="http://unikys.tistory.com/location">LOCATION LOG</a></li>
+			<li><a class="menuLink" href="#">회원관리</a></li>
 		</ul>
 	</nav>
 	</div>
