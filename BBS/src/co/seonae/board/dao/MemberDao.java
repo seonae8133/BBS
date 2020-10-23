@@ -40,6 +40,8 @@ public class MemberDao extends DAO {
 			}
 		}catch(SQLException e) {//
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		return list;
 	}
@@ -60,6 +62,8 @@ public class MemberDao extends DAO {
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		return vo;
 	}
@@ -78,6 +82,8 @@ public class MemberDao extends DAO {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		return  n; //정수를 반환해줌 ex)n 행이 반환되었습니다
 	} 
@@ -90,5 +96,19 @@ public class MemberDao extends DAO {
 	public int delete(MemberVO vo) {//memberVO에 delete 하는것
 		int n =0;
 		return  n;
-	} 
+	}
+	
+	//db연결닫기
+	private void close() {
+		try {
+			//커넥션연결 - preparestatement연결 - result set 순서 : 열어준 순서 반대로 닫아주기
+			if(rs != null) rs.close();
+			if(psmt != null) psmt.close();
+			if(conn != null) conn.close();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}
+	}
 }
