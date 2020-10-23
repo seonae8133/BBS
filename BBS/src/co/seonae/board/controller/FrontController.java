@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.seonae.board.command.LoginAction;
 import co.seonae.board.command.MainAction;
+import co.seonae.board.command.MemberListAction;
+import co.seonae.board.command.loginForm;
 import co.seonae.board.common.Action;
 
 
@@ -35,7 +37,12 @@ public class FrontController extends HttpServlet {
 		// 요청들을 정의함
 		map.put("/main.do",new MainAction());//처음 브라우저 접근할때 사용 (index.jsp): index.jsp가 들어오면 처리할거
 		map.put("/login.do",new LoginAction()); //로그인 메뉴를 처리하는곳에 사용
-		
+		map.put("/loginForm.do", new loginForm()); //로그인 폼 호출
+		map.put("/memberList.do", new MemberListAction());//회원전체 리스트보기
+//		map.put("/loginForm.do", new loginForm());
+//		map.put("/loginForm.do", new loginForm());
+//		map.put("/loginForm.do", new loginForm());
+//		map.put("/loginForm.do", new loginForm());
 		
 		//url에서 컨텐츠 패스가 /login.do가들어오면 new LoginAction 을 수행하라
 		//~.do는 어떤 명령어를 태워라
