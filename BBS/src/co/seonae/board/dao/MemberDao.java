@@ -16,6 +16,8 @@ public class MemberDao extends DAO {
 	private final String SELECT_ALL = "SELECT * FROM MEMBER"; //ctrl+shift+x = 대문자 자동변환
 	private final String SELECT = "SELECT * FROM MEMBER WHERE ID=? AND PASSWORD=?";
 	//final 로 만들어서 상수로 만듬(쿼리를 누가 바깥에서 수정하지 못하게 상수로 만듦)
+	private final String INSERT = "INSERT INTO MEMBER(ID,NAME,PASSWORD,ADDRESS,TEL,ENTERDATE)"
+														+ " VALUES(?,?,?,?,?,?)";
 	
 	public List<MemberVO> selectAll() { //멤버list전체를 불러오기 위한 함수
 		List<MemberVO> list = new ArrayList<MemberVO>();
@@ -47,7 +49,7 @@ public class MemberDao extends DAO {
 			psmt = conn.prepareStatement(SELECT);
 			psmt.setString(1,vo.getId());
 			psmt.setString(2,vo.getPassword());
-			//select 는무조건 resultset이들ㄹ어옴
+			//select 는무조건 resultset이들어옴
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				vo.setName(rs.getString("name"));
@@ -64,7 +66,20 @@ public class MemberDao extends DAO {
 	
 	public int insert(MemberVO vo) {//memberVO에 insert 하는것
 		int n =0;
-		return  n;
+		try {
+			psmt = conn.prepareStatement(INSERT);
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getName());
+			psmt.setString(3, vo.getPassword());
+			psmt.setString(4, vo.getAddress());
+			psmt.setString(5, vo.getTel());
+			psmt.setDate(6, vo.getEnterdate());
+			n = psmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return  n; //정수를 반환해줌 ex)n 행이 반환되었습니다
 	} 
 	
 	public int update(MemberVO vo) {//memberVO에 update 하는것
