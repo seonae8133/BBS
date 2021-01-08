@@ -3,6 +3,7 @@ package co.seonae.board.vo;
 import java.sql.Date;
 
 public class MemberVO {
+
 	private String id;
 	private String name;
 	private String password;
@@ -10,9 +11,34 @@ public class MemberVO {
 	private String tel;
 	private Date enterdate;
 	private String author;
+	Integer first;
+	Integer last;
 	
 	public MemberVO() {
 
+	}
+
+	
+	public Integer getFirst() {
+		return first;
+	}
+
+
+
+	public void setFirst(Integer first) {
+		this.first = first;
+	}
+
+
+
+	public Integer getLast() {
+		return last;
+	}
+
+
+
+	public void setLast(Integer last) {
+		this.last = last;
 	}
 
 	public String getId() {

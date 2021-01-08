@@ -15,7 +15,10 @@ public class MemberDao extends DAO {
 	
 	
 	
-	private final String SELECT_ALL = "SELECT * FROM MEMBER"; //ctrl+shift+x = 대문자 자동변환
+	private final String SELECT_ALL = " select * from (select a.*, rownum rn from ("
+			+ "SELECT * FROM MEMBER order by id"
+			+ "    ) a) b where rn between ? and ?"; //ctrl+shift+x = 대문자 자동변환
+	
 	private final String SELECT = "SELECT * FROM MEMBER WHERE ID=? AND PASSWORD=?";
 	//final 로 만들어서 상수로 만듬(쿼리를 누가 바깥에서 수정하지 못하게 상수로 만듦)
 	private final String INSERT = "INSERT INTO MEMBER(ID,NAME,PASSWORD,ADDRESS,TEL,ENTERDATE)"
@@ -25,11 +28,14 @@ public class MemberDao extends DAO {
 	private final String DELETE = "DELETE FROM MEMBER WHERE ID=?";
 	
 	
-	public List<MemberVO> selectAll() { //멤버list전체를 불러오기 위한 함수
+	public List<MemberVO> selectAll(MemberVO mvo) { //멤버list전체를 불러오기 위한 함수
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		try {
 			psmt = conn.prepareStatement(SELECT_ALL);//상위 dao가 conn을 갖고있어서 여기도 사용가능
 			//conn객체에 내가 실행해야할 sql문 담음 : dbms에 sql문 전달한것임
+			
+			psmt.setInt(1,  mvo.getFirst());
+			psmt.setInt(2,  mvo.getLast());
 			rs = psmt.executeQuery(); //executeQuery는 resultSet을 반환함 - resultSet변수에 받기
 			while(rs.next()) {
 				vo = new MemberVO(); //가지고 온 결과 담기위한 vo객체 생성
@@ -50,6 +56,23 @@ public class MemberDao extends DAO {
 			close();
 		}
 		return list;
+	}
+	
+	//페이징처리
+	public int count(MemberVO vo) {//건수만 받아오면 되서 리턴값은 int로 지정
+		int cnt = 0;
+		try {
+			String sql = "select count(*) from member";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			rs.next();
+				cnt = rs.getInt(1);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return cnt;// 리턴타입 int
 	}
 	
 	public MemberVO select(MemberVO vo) {//한 행을 검색할때

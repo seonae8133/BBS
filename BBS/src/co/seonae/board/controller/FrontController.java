@@ -63,10 +63,16 @@ public class FrontController extends HttpServlet {
 		Action command = map.get(path); // map에 path를 던지면 MainAction()이 날아옴 (Action.java 보면String으로 받아야됨) //메인액션을 초기화시키고
 		String viewPage = command.exec(request, response); //실제 명령어가 수행될 부분, 1.command를 실행시켜서 문자열로 돌려줌 ,보여줄 페이지(viewPage)를 선택
 		
+		if(viewPage != null) {
+			if(viewPage.startsWith("redirect")) {
+				response.sendRedirect(viewPage.substring(9)); // return "redirect:memberList.do"; 여기의 9번째 자리부터(=memberList.do)
+			}else {
+				//forword
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); // 2.dispatcher에 viewpage 를 실어주고 - 선택한 페이지로 가기 
 		//RequestDispatcher객체 생성 (request객체를 전달해줄 페이지)
 		dispatcher.forward(request, response); //3.그페이지로 가라~
-		
+			}
+		}
 		
 	}
 

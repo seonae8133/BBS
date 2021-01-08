@@ -12,7 +12,7 @@
 	<div align="center">
 		<div><h1>회 원 가 입</h1></div>
 		<div>
-			<form id="frm" name="frm" action="memberInsert.do" method="post">
+			<form id="frm" name="frm" action="memberInsert.do" method="post" enctype="mulipart/form-data">
 				<table border="1">
 					<tr>
 						<th width="150">아이디</th>
@@ -21,6 +21,10 @@
 					<tr>
 						<th width="150">패스워드</th>
 						<td><input type="password" id="password" name="password"></td>
+					</tr>
+					<tr>
+						<th width="150">사진</th>
+						<td><input type="file" id="img" name="img"></td>
 					</tr>
 					<tr>
 						<th width="150">이름</th>
@@ -41,8 +45,7 @@
 					<tr>
 						<td colspan="2" align="center">
 							<input type="submit" value="가입하기">&nbsp;&nbsp;
-							
-							<input type="reset" value="취  소" >
+							<input type="reset" value="취  소">
 						</td>
 					</tr>
 				</table>

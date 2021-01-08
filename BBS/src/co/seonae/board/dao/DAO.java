@@ -1,8 +1,10 @@
 package co.seonae.board.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class DAO {
 	private String driver = driver = "oracle.jdbc.driver.OracleDriver";
@@ -15,10 +17,16 @@ public class DAO {
 	
 	public DAO() { //데이터 베이스를 다룰때는 항상 try catch를 해줘야함
 		try {
-			Class.forName(driver); //driver load
-			conn = DriverManager.getConnection(url, user, password);
+			//Class.forName(driver); //driver load
+			//conn = DriverManager.getConnection(url, user, password);
+			
+			Context initContext = new InitialContext();
+			Context envContext  = (Context)initContext.lookup("java:/comp/env");
+			DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
+			conn = ds.getConnection();
+			
 			System.out.println("db 연결 성공");
-		}catch(ClassNotFoundException  | SQLException e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

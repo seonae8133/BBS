@@ -1,5 +1,6 @@
 package co.seonae.board.command;
 
+import java.io.IOException;
 import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,13 +26,26 @@ public class MemberInsertAction implements Action {
 		vo.setEnterdate(Date.valueOf(request.getParameter("enterdate"))); //Date.valueOf : form에서 넘어오는것은 다 문자열임. 문자로 들어온걸 date 타입으로 바꿔줌
 		
 		int n = dao.insert(vo);
-		String page;
-		if(n != 0) {
-			page = "jsp/member/insertSuccess.jsp";
-		} else {
-			page = "jsp/member/insertFail.jsp";
+		
+		//목록으로 sendRediect()
+		
+		try {
+			response.sendRedirect("memberList.do");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return page;
+		return "redirect:memberList.do";
+		
+		//return null;
+		
+		
+//		String page;
+//		if(n != 0) {
+//			page = "jsp/member/insertSuccess.jsp";
+//		} else {
+//			page = "jsp/member/insertFail.jsp";
+//		}
+//		return page;
 	}
 
 }
